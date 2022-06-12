@@ -1,3 +1,5 @@
+drop database dwrm;
+create database dwrm;
 use dwrm;
 drop procedure if exists sp_carga_canciones_dw;
 DELIMITER //

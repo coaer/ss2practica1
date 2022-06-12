@@ -11,7 +11,7 @@ desc limit 10;
 
 
 /*CONSULTA 2: TOP 10 DE CANCIONES CON MAYORES REPRODUCCIONES*/
-select art.nombre, can.nombre,sum(mus.num_reproducciones) as reproducciones
+select art.nombre as 'artista', can.nombre as 'cancion',sum(mus.num_reproducciones) as reproducciones
 from cancion can, reproduccion_musical mus, artista art
 where can.id=mus.cancion_id
 and mus.artista_id=art.id
@@ -50,9 +50,9 @@ order by reproducciones desc;
 
 
 /*CONSULTA 5: CANCION MÁS REPRODUCIDA POR GENERO*/
-select resultado.nom as 'Canción' ,resultado.arti as 'Artista', resultado.gen as 'Género' , max(resultado.reproducciones)  as 'Total Reproducciones' from (select 
+select resultado.nom as 'Canción' ,resultado.arti as 'Artista', resultado.gener as 'Género' , max(resultado.reproducciones)  as 'Total Reproducciones' from (select 
 	can.nombre as nom
-    , gen.nombre as gen
+    , gen.nombre as gener
     ,art.nombre as arti
 	,sum(mus.num_reproducciones) as reproducciones
 from cancion can, reproduccion_musical mus, artista art,genero gen
@@ -63,7 +63,7 @@ group by can.nombre, gen.nombre,art.nombre
 order by reproducciones 
 desc) resultado
 where resultado.reproducciones>=0
-group by resultado.gen
+group by resultado.gener
 order by reproducciones desc;
 
 
@@ -98,10 +98,10 @@ where can.id=mus.cancion_id
 and mus.artista_id=art.id
 group by art.nombre
 order by popularidad 
-desc;
+desc limit 10;
 
 /*CONSULTA 8: 10 CANCIONES MÁS POPULARES*/
-select distinct art.nombre, can.nombre,max(can.popularity) as popularidad
+select distinct art.nombre as 'Artista', can.nombre as 'Canción',max(can.popularity) as popularidad
 from cancion can, reproduccion_musical mus, artista art
 where can.id=mus.cancion_id
 and mus.artista_id=art.id

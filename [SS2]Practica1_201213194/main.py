@@ -1,6 +1,7 @@
 #Las librerias necesarias
 #import pyodbc
 import mysql.connector
+import os
 from mysql.connector import Error
 import pandas as pd
 
@@ -52,7 +53,16 @@ def menu():
             crearModelo()
         elif opcion=='3':
             logger.info('USUARIO REALIZA OPERACION DE CONSULTAS')
-            ejecutar_consulta(1)
+            query1()
+            query2()
+            query3()
+            query4()
+            query5()
+            query6()
+            query7()
+            query8()
+            query9()
+            query10()
         else:
             connection.close()
             logger.info('Conexion finalizada')
@@ -227,21 +237,213 @@ def realiza_consultas():
 
 
 
-def ejecutar_consulta(num):    
+def query1():    
     try:
-        resultadoConsultas.info("CONSULTA 1: TOP 10 DE ARTISTAS CON MAYORES REPRODUCCIONES")
+        from_db = []
+        logger.info("CONSULTA 1: TOP 10 DE ARTISTAS CON MAYORES REPRODUCCIONES")
         #cursor = conn.cursor()
         connection = mysql.connector.connect(host='localhost',database='dwrm',user='root',password='123456')       
         cursor = connection.cursor()     
-        result = cursor.execute(QUERY1)    
-        for row in result:        
-            resultadoConsultas.info(f"{row[0]}")
+        cursor.execute(QUERY1)
+        results = cursor.fetchall()        
+        for result in results:
+            result = list(result)
+            from_db.append(result)            
+        columns = ["Artista", "Numero_rerproducciones"]
+        df = pd.DataFrame(from_db, columns=columns)
+        df.to_csv('resultados/resultado1.csv', index=False)
     except Exception as e:
         logger.error(e)
         connection.close()
         exit()
 
 
+def query2():    
+    try:
+        from_db = []
+        logger.info("CONSULTA 2: TOP 10 DE CANCIONES CON MAYORES REPRODUCCIONES")
+        #cursor = conn.cursor()
+        connection = mysql.connector.connect(host='localhost',database='dwrm',user='root',password='123456')       
+        cursor = connection.cursor()     
+        cursor.execute(QUERY2)
+        results = cursor.fetchall()        
+        for result in results:
+            result = list(result)
+            from_db.append(result)            
+        columns = ["Artista","Cancion", "Numero_rerproducciones"]
+        df = pd.DataFrame(from_db, columns=columns)
+        df.to_csv('resultados/resultado2.csv', index=False)
+    except Exception as e:
+        logger.error(e)
+        connection.close()
+        exit()
+
+
+def query3():    
+    try:
+        from_db = []
+        logger.info("CONSULTA 3: TOP 5 GENEROS MÁS REPRODUCIDOS")
+        #cursor = conn.cursor()
+        connection = mysql.connector.connect(host='localhost',database='dwrm',user='root',password='123456')       
+        cursor = connection.cursor()     
+        cursor.execute(QUERY3)
+        results = cursor.fetchall()        
+        for result in results:
+            result = list(result)
+            from_db.append(result)            
+        columns = ["Género", "Numero_rerproducciones"]
+        df = pd.DataFrame(from_db, columns=columns)
+        df.to_csv('resultados/resultado3.csv', index=False)
+    except Exception as e:
+        logger.error(e)
+        connection.close()
+        exit()
+
+def query4():    
+    try:
+        from_db = []
+        logger.info("CONSULTA 4: EL ARTISTA MÁS REPRODUCIDO POR GENERO")
+        #cursor = conn.cursor()
+        connection = mysql.connector.connect(host='localhost',database='dwrm',user='root',password='123456')       
+        cursor = connection.cursor()     
+        cursor.execute(QUERY4)
+        results = cursor.fetchall()        
+        for result in results:
+            result = list(result)
+            from_db.append(result)            
+        columns = ["Artista","Género", "Numero_rerproducciones"]
+        df = pd.DataFrame(from_db, columns=columns)
+        df.to_csv('resultados/resultado4.csv', index=False)
+    except Exception as e:
+        logger.error(e)
+        connection.close()
+        exit()
+
+
+def query5():    
+    try:
+        from_db = []
+        logger.info("CONSULTA 5: CANCION MÁS REPRODUCIDA POR GENERO")
+        #cursor = conn.cursor()
+        connection = mysql.connector.connect(host='localhost',database='dwrm',user='root',password='123456')       
+        cursor = connection.cursor()     
+        cursor.execute(QUERY5)
+        results = cursor.fetchall()        
+        for result in results:
+            result = list(result)
+            from_db.append(result)            
+        columns = ["Canción","Artista","Género", "Numero_rerproducciones"]
+        df = pd.DataFrame(from_db, columns=columns)
+        df.to_csv('resultados/resultado5.csv', index=False)
+    except Exception as e:
+        logger.error(e)
+        connection.close()
+        exit()
+
+
+def query6():    
+    try:
+        from_db = []
+        logger.info("CONSULTA 6: CANCION MÁS REPRODUCIDA POR CADA AÑO QUE FUE LANZADA")
+        #cursor = conn.cursor()
+        connection = mysql.connector.connect(host='localhost',database='dwrm',user='root',password='123456')       
+        cursor = connection.cursor()     
+        cursor.execute(QUERY6)
+        results = cursor.fetchall()        
+        for result in results:
+            result = list(result)
+            from_db.append(result)            
+        columns = ["Canción","Artista","Género", "Numero_rerproducciones","Anio"]
+        df = pd.DataFrame(from_db, columns=columns)
+        df.to_csv('resultados/resultado6.csv', index=False)
+    except Exception as e:
+        logger.error(e)
+        connection.close()
+        exit()
+
+def query7():    
+    try:
+        from_db = []
+        logger.info("CONSULTA 7: 10 ARTISTAS MÁS POPULARES")
+        #cursor = conn.cursor()
+        connection = mysql.connector.connect(host='localhost',database='dwrm',user='root',password='123456')       
+        cursor = connection.cursor()     
+        cursor.execute(QUERY7)
+        results = cursor.fetchall()        
+        for result in results:
+            result = list(result)
+            from_db.append(result)            
+        columns = ["Artista","Popularidad"]
+        df = pd.DataFrame(from_db, columns=columns)
+        df.to_csv('resultados/resultado7.csv', index=False)
+    except Exception as e:
+        logger.error(e)
+        connection.close()
+        exit()
+
+
+def query8():    
+    try:
+        from_db = []
+        logger.info("CONSULTA 8: 10 CANCIONES MÁS POPULARES")
+        #cursor = conn.cursor()
+        connection = mysql.connector.connect(host='localhost',database='dwrm',user='root',password='123456')       
+        cursor = connection.cursor()     
+        cursor.execute(QUERY8)
+        results = cursor.fetchall()        
+        for result in results:
+            result = list(result)
+            from_db.append(result)            
+        columns = ["Artista","Canción","Popularidad"]
+        df = pd.DataFrame(from_db, columns=columns)
+        df.to_csv('resultados/resultado8.csv', index=False)
+    except Exception as e:
+        logger.error(e)
+        connection.close()
+        exit()
+
+
+def query9():    
+    try:
+        from_db = []
+        logger.info("CONSULTA 9: 5 Generos más populares")
+        #cursor = conn.cursor()
+        connection = mysql.connector.connect(host='localhost',database='dwrm',user='root',password='123456')       
+        cursor = connection.cursor()     
+        cursor.execute(QUERY9)
+        results = cursor.fetchall()        
+        for result in results:
+            result = list(result)
+            from_db.append(result)            
+        columns = ["Género","Popularidad"]
+        df = pd.DataFrame(from_db, columns=columns)
+        df.to_csv('resultados/resultado9.csv', index=False)
+    except Exception as e:
+        logger.error(e)
+        connection.close()
+        exit()
+
+
+
+def query10():
+    try:
+        from_db = []
+        logger.info("CONSULTA 10: La canción más explicita por género")
+        #cursor = conn.cursor()
+        connection = mysql.connector.connect(host='localhost',database='dwrm',user='root',password='123456')       
+        cursor = connection.cursor()     
+        cursor.execute(QUERY10)
+        results = cursor.fetchall()        
+        for result in results:
+            result = list(result)
+            from_db.append(result)            
+        columns = ["Canción","Artista","Género"]
+        df = pd.DataFrame(from_db, columns=columns)
+        df.to_csv('resultados/resultado10.csv', index=False)
+    except Exception as e:
+        logger.error(e)
+        connection.close()
+        exit()
 
 
 
